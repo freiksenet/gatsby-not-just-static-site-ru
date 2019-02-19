@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "gatsby-mdx-theme": "^0.0.4",
+    "react": "^16.8.2",
     "typeface-space-mono": "^0.0.54",
     "typeface-spectral": "^0.0.54"
   }

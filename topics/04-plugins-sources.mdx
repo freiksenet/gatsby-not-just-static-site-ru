@@ -1,0 +1,168 @@
+import { FullScreenCode, Main, Section, SectionInverted } from 'gatsby-mdx-theme'
+
+export default Main
+
+# Источники данных
+
+---
+
+# Данные в Гатсби
+
+- Добавляются из разных источников
+- Общий интерфейс для запросов
+- Страницы берут данные через GraphQL
+
+---
+
+export default FullScreenCode
+
+```graphql
+{
+  site {
+    siteMetadata {
+      title
+    }
+  }
+}
+```
+
+---
+
+export default Section
+
+# Source Plugins
+
+## Позволяют использовать данные из разных источников через один интерфейс
+
+---
+
+# gatsby-source-filesystem
+
+---
+export default FullScreenCode
+
+```json
+[
+  {
+    "name": "Mikhail Novikov",
+    "email": "freiksenet@gmail.com",
+    "avatar": "pictures/freiksenet.jpg"
+  },
+  // ...
+]
+```
+
+---
+export default FullScreenCode
+
+```graphql
+{
+  authorsJson(name: { eq: "Mikhail Novikov" }) {
+    name
+    email
+    avatar {
+      publicUrl
+    }
+  }
+}
+```
+
+---
+
+## gatsby-source-contentful
+## gatsby-source-wordpress
+## gatsby-source-shopify
+
+---
+
+export default FullScreenCode
+
+```graphql
+{
+  contentfulPage(id: "some-id") {
+    name
+    title
+    subtitle {
+      subtitle
+    }
+    keyvisual {
+      name
+    }
+  }
+}
+```
+
+---
+
+export default Section
+
+# Transformer Plugins
+
+## Изменяют и дополняют данные из других источников
+
+---
+
+# gatsby-transformer-sharp
+
+---
+
+export default FullScreenCode
+
+
+```graphql
+{
+  authorsJson(name: { eq: "Mikhail Novikov" }) {
+    name
+    email
+    avatar {
+      childImageSharp {
+        fluid(maxWidth: 200) {
+          tracedSVG
+          srcSet
+        }
+      }
+    }
+  }
+}
+```
+
+---
+
+# gatsby-transformer-remark
+
+---
+
+export default FullScreenCode
+
+```md
+\-\-\-
+title: "PiterJS встречает Гатсби"
+date: 2019-02-19
+author: Mikhail Novikov
+\-\-\-
+Текст
+```
+
+---
+
+export default FullScreenCode
+
+```graphql
+{
+  allMarkdownRemark {
+    edges {
+      node {
+        html
+        headings {
+          depth
+          value
+        }
+        frontmatter {
+          title
+          date
+        }
+      }
+    }
+  }
+}
+```
